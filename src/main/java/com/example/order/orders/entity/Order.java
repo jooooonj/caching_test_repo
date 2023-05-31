@@ -37,4 +37,9 @@ public class Order{
         return order;
     }
 
+    public void cancel() {
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();
+        }
+    }
 }

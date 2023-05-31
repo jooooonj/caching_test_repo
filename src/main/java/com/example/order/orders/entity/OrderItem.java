@@ -1,5 +1,6 @@
 package com.example.order.orders.entity;
 
+import com.example.order.product.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,22 +18,20 @@ public class OrderItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
-
-    @Column(name = "order_price", nullable = false)
-    private int orderPrice;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
     @Column(name = "count", nullable = false)
     private int count;
-
-    private String productName;
-    private int productPrice;
 
     public void connectOrder(Order order) {
         this.order = order;
     }
-
-    public int getTotalPrice() {
-        return count * productPrice;
+    public void cancel() {
+        this.product.addStock(count);
     }
 
+    public int getTotalPrice() {
+        return count * getProduct().getPrice();
+    }
 }
