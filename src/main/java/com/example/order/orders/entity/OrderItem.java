@@ -2,13 +2,14 @@ package com.example.order.orders.entity;
 
 import com.example.order.product.Product;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 @Entity
 @Getter
 @Table(name = "order_item")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class OrderItem {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
