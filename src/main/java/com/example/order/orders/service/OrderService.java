@@ -28,8 +28,28 @@ public class OrderService {
             System.out.println("주문실패");
             throw new RuntimeException("stock is not enough");   // 임시. 나중에 사용자 exception 널을까말까 생각
         }
+
         List<OrderItem> orderItemList = new ArrayList<>();
         orderItemList.add(OrderItem.builder().count(orderRequest.getQuantity()).product(product).build());
+
+        Order order = Order.createOrder(orderItemList);
+        orderRepository.save(order);
+    }
+
+    //상품 여러개 한번에 주문
+    public void orderMany(List<OrderRequest> orderRequestList){
+        List<OrderItem> orderItemList = new ArrayList<>();
+
+        for(OrderRequest orderRequest : orderRequestList){
+            Product product = productRepository.findById(orderRequest.getProductId()).orElseThrow();
+
+            if (product.getStock() < orderRequest.getQuantity()){
+                System.out.println("주문실패");
+                throw new RuntimeException("stock is not enough");   // 임시. 나중에 사용자 exception 널을까말까 생각
+            }
+
+            orderItemList.add(OrderItem.builder().count(orderRequest.getQuantity()).product(product).build());
+        }
 
         Order order = Order.createOrder(orderItemList);
         orderRepository.save(order);
