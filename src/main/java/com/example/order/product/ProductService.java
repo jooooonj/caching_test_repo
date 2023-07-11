@@ -23,7 +23,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    @Cacheable(value = "product", key = "#productId")
+    @Cacheable(value = "product")
     public Product findProduct(Long productId) {
         System.out.print("========================================findProduct");
         return productRepository.findById(productId).orElse(null);
