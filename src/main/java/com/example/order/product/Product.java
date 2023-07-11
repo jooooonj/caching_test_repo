@@ -2,6 +2,8 @@ package com.example.order.product;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 
 @Entity
 @Getter

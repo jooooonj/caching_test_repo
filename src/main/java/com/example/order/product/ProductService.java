@@ -2,6 +2,8 @@ package com.example.order.product;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.Cache;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +23,10 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-
-    public Product findProduct() {
+    @Cacheable(value = "product", key = "#productId")
+    public Product findProduct(Long productId) {
         System.out.print("========================================findProduct");
-        return productRepository.findById(1L).orElse(null);
+        return productRepository.findById(productId).orElse(null);
     }
 
     @Transactional

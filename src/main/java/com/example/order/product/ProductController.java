@@ -22,8 +22,8 @@ public class ProductController {
     }
 
     @GetMapping("/redis/one")
-    public Product getOne(){
-        return productService.findProduct();
+    public Product getOne(@RequestParam("productId") Long productId){
+        return productService.findProduct(productId);
     }
 
     @PostMapping("/redis/modify")
