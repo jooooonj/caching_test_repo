@@ -17,17 +17,23 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/redis/all")
-    public List<Product> getProducts(){
+    public List<Product> getProducts() {
         return productService.findAll();
     }
 
-    @GetMapping("/redis/one")
-    public Product getOne(@RequestParam("productId") Long productId){
-        return productService.findProduct(productId);
+    @GetMapping("/redis/v1/test")
+    public Product getOneWithAnotation(@RequestParam("productId") Long productId) {
+        return productService.findProductWithAnotation(productId);
     }
 
+    @GetMapping("/redis/v2/test")
+    public Product getOneWithRedisTemplate(@RequestParam("productId") Long productId) {
+        return productService.findProductWithRedisTemplate(productId);
+    }
+
+
     @PostMapping("/redis/modify")
-    public void modify(@RequestParam("stock") int stock){
+    public void modify(@RequestParam("stock") int stock) {
 
         productService.modifyStock(stock);
     }

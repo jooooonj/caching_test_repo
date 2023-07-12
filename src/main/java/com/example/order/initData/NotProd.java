@@ -18,7 +18,7 @@ public class NotProd {
         return args -> {
 
             for(int i=0; i<100; i++){
-                Product product = Product.builder().price(100+i).stock(100+i).name("상품").build();
+                Product product = Product.builder().price(100+i).stock(100+i).name("상품1").build();
                 productRepository.save(product);
             }
 
