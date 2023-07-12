@@ -1,6 +1,7 @@
 package com.example.order.product;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+//@RedisHash(value = "redisProduct")
 public class Product{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

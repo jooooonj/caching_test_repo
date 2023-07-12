@@ -2,10 +2,7 @@ package com.example.order.product;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,16 +23,21 @@ public class ProductController {
         return productService.findProductWithAnotation(productId);
     }
 
-    @GetMapping("/redis/v2/test")
-    public Product getOneWithRedisTemplate(@RequestParam("productId") Long productId) {
-        return productService.findProductWithRedisTemplate(productId);
-    }
+//    @GetMapping("/redis/v2/test")
+//    public Product getOneWithRedisTemplate(@RequestParam("productId") Long productId) {
+//        return productService.findProductWithRedisTemplate(productId);
+//    }
 
 
     @PostMapping("/redis/modify")
     public void modify(@RequestParam("stock") int stock) {
+        Long productId = 1L;
+        productService.modifyStock(stock, productId);
+    }
 
-        productService.modifyStock(stock);
+    @DeleteMapping("/redis")
+    public void delete(@RequestParam("productId") Long productId){
+        productService.deleteProduct(productId);
     }
 
 }
