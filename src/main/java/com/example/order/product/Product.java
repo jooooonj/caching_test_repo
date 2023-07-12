@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Product implements Serializable {
+public class Product{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
