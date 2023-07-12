@@ -19,6 +19,7 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
     private final StringRedisTemplate stringRedisTemplate;
+    private final ProductDetailService productDetailService;
 
     @Cacheable(value = "products", key = "0")
     public List<Product> findAll() {
@@ -30,16 +31,8 @@ public class ProductService {
 //    @Cacheable(value = "product", key = "#productId")
     public Product findProductWithAnotation(Long productId) {
         System.out.print("========================================findProduct");
-        return findProductWithAnotationDepth1(productId);
-//        return productRepository.findById(productId).orElse(null);
+        return productDetailService.findProductWithAnotationDepth1(productId);
     }
-
-    @Cacheable(value = "product", key = "#productId")
-    public Product findProductWithAnotationDepth1(Long productId) {
-        System.out.print("========================================depth1");
-        return productRepository.findById(productId).orElse(null);
-    }
-
 
     //직접 레디스에 저장한 후 테스트
     public Product findProductWithRedisTemplate(Long productId) {
