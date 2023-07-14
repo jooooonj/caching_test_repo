@@ -18,9 +18,14 @@ public class ProductController {
         return productService.findAll();
     }
 
-    @GetMapping("/redis/v1/test")
+    @GetMapping("/redis/normal")
     public Product getOneWithAnotation(@RequestParam("productId") Long productId) {
         return productService.findProductWithAnotation(productId);
+    }
+
+    @GetMapping("/redis/page")
+    public Product getAllByPage(@RequestParam("offset") int offset) {
+        return productService.getAllByPage(offset);
     }
 
 //    @GetMapping("/redis/v2/test")

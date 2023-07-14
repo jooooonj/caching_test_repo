@@ -58,5 +58,7 @@ public class ProductService {
         productRepository.deleteById(productId);
     }
 
-
+    @Transactional(readOnly = true)
+    public Product getAllByPage(int offset) {
+    }
 }
