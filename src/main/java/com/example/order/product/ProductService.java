@@ -6,6 +6,8 @@ import org.hibernate.annotations.Cache;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -59,6 +61,8 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Product getAllByPage(int offset) {
+    @Cacheable(key = "#offset", value = "productsByPage")
+    public Page<Product> getAllByPage(int offset) {
+        return productRepository.findAll(PageRequest.of(offset, 10));
     }
 }
